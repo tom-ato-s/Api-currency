@@ -1,4 +1,4 @@
-package com.example.Apicurrency.test;
+package com.example.Apicurrency.old.test;
 
 import org.springframework.stereotype.Service;
 

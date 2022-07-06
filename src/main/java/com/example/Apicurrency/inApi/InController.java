@@ -1,11 +1,16 @@
 package com.example.Apicurrency.inApi;
 
+import com.example.Apicurrency.autApi.AutMain;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
+
+import static com.example.Apicurrency.autApi.AutMain.*;
+
 @RestController
-@RequestMapping("/gif")
+//@RequestMapping("/gif")
  public class InController {
 //    public interface InController {
 //    private final String sharedKey = "SHARED_KEY";
@@ -15,13 +20,12 @@ import org.springframework.web.bind.annotation.*;
 //    private static final int CODE_SUCCESS = 100;
 //    private static final int AUTH_FAILURE = 102;
 
-
-    //out gif
-
-    @RequestLine("GET /gif/{valuta}")
-    String getGif(@Param("valuta") String valuta){
-        return "String";
-    }
+//
+//    @RequestLine("GET /gif/{valuta}")
+//    String getGif(@Param("valuta") String valuta) throws URISyntaxException {
+//      String s = autMain(valuta);
+//        return s;
+//    }
 
 
 
@@ -39,7 +43,6 @@ import org.springframework.web.bind.annotation.*;
 //        return new BaseResponse(SUCCESS_STATUS, 1);
 //    }
 //    //отправка валюты
-//    @PostMapping("/curs")
 //    public BaseResponse getGif(@RequestParam(value = "valuta") String valuta, @RequestBody InRequest request) {
 //
 //        final BaseResponse response;

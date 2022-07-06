@@ -1,21 +1,26 @@
-package com.example.Apicurrency;
+/*
+Controller для входящих запросов на сервер
+получает валюту
+возвращает gif
+ */
+
+package com.example.Apicurrency.inApi;
 
 import com.example.Apicurrency.autApi.AutMain;
 import feign.Param;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
-
-import static com.example.Apicurrency.autApi.AutMain.*;
 
 @Controller
 public class HomeController {
     @RequestMapping("/gif/{valuta}")
-    public @ResponseBody  String greeting(@Param("valuta") String valuta) throws URISyntaxException {
-        String s = AutMain.autMain("RUB");
+    public @ResponseBody  String greeting(@PathVariable(value = "valuta") String val) throws URISyntaxException, IOException {
+        String s = AutMain.autMain(val);
         return s;
         }
 }

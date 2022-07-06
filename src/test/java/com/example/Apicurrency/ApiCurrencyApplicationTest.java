@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestingWebApplicationTest {
+public class ApiCurrencyApplicationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -22,6 +22,6 @@ public class TestingWebApplicationTest {
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
         this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hellow, Word")))
+                .andExpect(content().string(containsString("Hellow, Word")));
     }
 }

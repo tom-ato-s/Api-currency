@@ -1,8 +1,11 @@
+/*
+ Контроллер для запросов на внешние API
+ openexchangerates.org  - получение курса валют
+ giphy.com - получение gif
+*/
+
 package com.example.Apicurrency.autApi;
 
-
-import com.example.Apicurrency.old.entity.CourseResponse;
-import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,12 +13,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 @FeignClient()
 public interface AutController{
-  //  private String app_id = "03a6c20a691540d4afea051b31578752";
- //   public static String ASSET = ".gif";
-//    CourseResponse сourseResponse = null;
-
-//    @Value("${giphy.api.key}")
-//    private String apiKey;
+    String app_id = "03a6c20a691540d4afea051b31578752";
 
     /**
      * Курс на сегодня
@@ -58,9 +56,8 @@ public interface AutController{
      *
      */
     @RequestLine("GET ?api_key={api_key}&tag={tag}&rating=g")
-    String getGifRich(@Param("api_key") String api_key, @Param("tag") String tag);
-
-
+ //   @Headers("Accept: text/html")
+    String getGif(@Param("api_key") String api_key, @Param("tag") String tag);
 
 
     // https://giphy.com/search/rich?api_key=VKcwC5rNwIqSznKEkm9FdoNHh0LrWq6P&limit=1&offset=22
