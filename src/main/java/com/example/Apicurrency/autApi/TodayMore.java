@@ -1,5 +1,6 @@
 /*
-Класс парсит json-ны, с курсами валют и сравнивает их.
+Класс парсит json-ны, с курсами валют и сравнивает их
+возвращает boolean больше курс сегодня/меньше курс курс сегодня true/false
  */
 
 package com.example.Apicurrency.autApi;
@@ -10,18 +11,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TodayMore {
-String valuta;
-    //сравнивает курсы валют на присланную валюту сегодня и вчера
+
+    //сравнивает курсы валют на присланную валюту сегодня и вчера с полученых json
     public boolean todayMore(String nowCourses, String yesterdayCourses, String valuta) {
-        this.valuta = valuta;
-        //запрашуем курс валютя на сегодня
+
+        //парсим json курс валют на сегодня
       double nowCourse = parsingJson(nowCourses, valuta);
-       //запрашиваем курс валют на вчера
+       //парсим json курс валют на вчера
       double yesterdayCourse = parsingJson(yesterdayCourses, valuta);
        //сравниваем курсы
       return nowCourse > yesterdayCourse;
     }
-
     // парсинг json
     private double parsingJson(String courses, String valuta) {
 
@@ -30,5 +30,4 @@ String valuta;
         LinkedHashMap<String,Double> ratesMap = (LinkedHashMap<String, Double>) jsonMap.get("rates");
         return ratesMap.get(valuta);
     }
-
 }

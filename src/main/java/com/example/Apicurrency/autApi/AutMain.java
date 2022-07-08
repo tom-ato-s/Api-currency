@@ -5,26 +5,15 @@
 package com.example.Apicurrency.autApi;
 
 import feign.Feign;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Properties;
 
 public class AutMain {
-
-
-    private static String someCallbackFunction = "someCallbackFunction";
-    private static String app_id = "03a6c20a691540d4afea051b31578752";
-    private static String url_curs = "https://openexchangerates.org/api/";
-    private static String BUNDLE = "messaging_non_clips";
-
     static TodayMore todayMore = new TodayMore();
     static LinkJson linkJson = new LinkJson();
 
+//    @Value("${course.url}")
+//    private static String utl;
 
     private static String getYesterday(){
         LocalDate yesterday = LocalDate.now().minusDays(1);
@@ -32,21 +21,27 @@ public class AutMain {
                 yesterday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
-    //Класс принимает валюту
-    // Класс возвращает ссыку на gif
-    public static String autMain(String valuta) throws URISyntaxException, IOException {
+    //формирование html - стриницы с gif
+    private static String getHtml(String link) {
+        String pre = "<HTML>\n" +
+                "     <HEAD>\n" +
+                "    <meta charset=\"utf-8\"> \n" +
+                "     \t\t<TITLE> Действие - Вставка анимированного GIF-файла в HTML</TITLE> \n" +
+                "     </HEAD>\n" +
+                "      <BODY>\n" +
+                "          <img src=\"";
+        String afte = "\">\n" +
+                "                \n" +
+                "      </BODY>\n" +
+                "</HTML>\n";
+        return pre + link + afte;
+    }
 
-
-
-
-
-        FileInputStream fis;
-        Properties property = new Properties();
-        fis = new FileInputStream("src/main/resources/config.properties");
-        property.load(fis);
-
-
-
+    /*
+    Класс принимает валюту
+    Класс возвращает ссыку на gif
+     */
+    public static String autMain(String valuta) {
 
         //Подключение к API курса валют
         AutController autController = Feign.builder()
@@ -55,16 +50,14 @@ public class AutMain {
         //Запрос курса на сегодня
         String nowCourses = autController.getCourseNow("03a6c20a691540d4afea051b31578752");
 
-        // получаем вчерашнюю дату
+       // получаем вчерашнюю дату
         String date_yesterday = getYesterday();
-
-
+        //Запрос курса на вчера
         String yesterdayCourses = autController.getCourseYesterday(date_yesterday, "03a6c20a691540d4afea051b31578752");
-
         // Сравниваем курсы
         boolean more = todayMore.todayMore(nowCourses, yesterdayCourses, valuta);
         String tag;
-        if (more == true) {
+        if (more) {
             //запрос гифки rich
             tag = "rich";
         } else {
@@ -80,6 +73,7 @@ public class AutMain {
         // Получение ссылки на gif
         String gifJson = autInterface2.getGif("VKcwC5rNwIqSznKEkm9FdoNHh0LrWq6P", tag);
 
-        return linkJson.getLinkJson(gifJson);
+        // возвращение html страницы с gif
+        return getHtml(linkJson.getLinkJson(gifJson));
     }
 }

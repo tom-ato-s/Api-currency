@@ -1,3 +1,7 @@
+/*
+Главный класс запускает сервер приема запросов
+ */
+
 package com.example.Apicurrency;
 
 import org.springframework.boot.SpringApplication;
